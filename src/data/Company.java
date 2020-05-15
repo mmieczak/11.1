@@ -13,8 +13,9 @@ public class Company {
     private double employeeCounter = 0;
     private ArrayList<Department> departments;
 
-    public Company(String name) {
+    public Company(String name, String fileName) throws IOException {
         this.name = name;
+        getCompanyStatistics(fileName);
     }
 
     public void getCompanyStatistics(String fileName) throws IOException {

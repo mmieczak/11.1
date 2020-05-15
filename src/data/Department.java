@@ -29,8 +29,8 @@ public class Department {
     }
 
     private void calculateSalaryStatistics() {
-        if(employees.size()!=1) {
-            averageSalary=0;
+        if (employees.size() != 1) {
+            averageSalary = 0;
             for (Employee employee : employees) {
                 if (employee.getSalary() > maximumSalary) {
                     maximumSalary = employee.getSalary();
@@ -43,10 +43,20 @@ public class Department {
             averageSalary = averageSalary / employees.size();
 
         } else {
-            maximumSalary = employees.get(0).getSalary();
-            minimumSalary = maximumSalary;
-            averageSalary = maximumSalary;
-            employeesNumber = 1;
+            try {
+                maximumSalary = employees.get(0).getSalary();
+            } catch (NumberFormatException ex) {
+                maximumSalary = Double.MIN_VALUE;
+            }
+            if (maximumSalary != Double.MIN_VALUE) {
+                minimumSalary = maximumSalary;
+                averageSalary = maximumSalary;
+                employeesNumber = 1;
+            } else {
+                minimumSalary = Double.MIN_VALUE;
+                averageSalary = 0;
+                employeesNumber = 0;
+            }
         }
     }
 

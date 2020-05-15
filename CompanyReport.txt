@@ -1,7 +1,8 @@
-Average salary per Department: 5333.333333333333
-Lowest salary: 1000.0
-Highest salary: 9000.0
-Total employees: 7.0
-Total employees in Management: 2
-Total employees in it: 3
-Total employees in Support: 2
+Average salary per Department: 4325.0
+Lowest salary: 800.0
+Highest salary: 8000.0
+Total employees: 5.0
+Total employees in Management: 1
+Total employees in it: 2
+Total employees in Support: 1
+Total employees in Security: 1

@@ -3,12 +3,13 @@ package utils;
 import data.Company;
 import data.Department;
 import data.Employee;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class FileOperations {
-    private final String fileName;
-    private Department nullDept = new Department("nullDepartment");
+    public final String fileName;
+    private final Department nullDept = new Department("nullDepartment");
 
     public FileOperations(String fileName) {
         this.fileName = fileName;
@@ -61,16 +62,33 @@ public class FileOperations {
     }
 
     private Department createDepartment(String[] lineValues, ArrayList<Department> departments) {
+
         try {
+            String departmentName = lineValues[3];
+            String employeeName = lineValues[0];
+            String employeeSecondName = lineValues[1];
+            String pesel = lineValues[2];
             for (Department department : departments) {
-                if (department.getName().equals(lineValues[3])) {
-                    Employee employee = new Employee(lineValues[0], lineValues[1], Long.parseLong(lineValues[2]), Double.parseDouble(lineValues[4]));
-                    department.addEmployee(employee);
+                if (department.getName().equals(departmentName)) {
+                    try {
+                        Employee employee = new Employee(employeeName, employeeSecondName, Long.parseLong(pesel), Double.parseDouble(lineValues[4]));
+                        department.addEmployee(employee);
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Employee data are wrong. Unable to add employee to existing department");
+                    }
                     return nullDept;
                 }
             }
-            Employee employee = new Employee(lineValues[0], lineValues[1], Long.parseLong(lineValues[2]), Double.parseDouble(lineValues[4]));
-            return new Department(lineValues[3], employee);
+            try {
+                Employee employee = new Employee(employeeName, employeeSecondName, Long.parseLong(pesel), Double.parseDouble(lineValues[4]));
+            } catch (NumberFormatException ex) {
+                System.err.println("Employee data are wrong. Unable to add employee to new department : " + departmentName);
+            } finally {
+                System.out.println("Added new department: " + departmentName);
+            }
+            return new Department(departmentName);
+
+            //return new Department(lineValues[3], employee);
         } catch (RuntimeException ex) {
             System.err.println("Invalid input data :");
             ex.printStackTrace();
